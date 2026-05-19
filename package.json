@@ -1,7 +1,9 @@
 {
   "name": "dojolite",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "src/index.ts",
+  "type": "module",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
