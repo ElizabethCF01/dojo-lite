@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from 'react-native';
 
 type AvatarProps = {
   seed: string;
@@ -10,10 +10,10 @@ type AvatarProps = {
 export function Avatar({
   seed,
   size = 50,
-  backgroundColor = "4F46E5",
-  style = "adventurer",
+  backgroundColor = '4F46E5',
+  style = 'adventurer',
 }: AvatarProps) {
-  const bg = backgroundColor.replace("#", "");
+  const bg = backgroundColor.replace('#', '');
   const uri = `https://api.dicebear.com/10.x/${style}/png?seed=${encodeURIComponent(
     seed,
   )}&size=${size * 2}&backgroundColor=${bg}&radius=50`;
@@ -35,7 +35,7 @@ export function Avatar({
 
 const styles = StyleSheet.create({
   wrapper: {
-    overflow: "hidden",
-    backgroundColor: "#E5E7EB",
+    overflow: 'hidden',
+    backgroundColor: '#E5E7EB',
   },
 });
