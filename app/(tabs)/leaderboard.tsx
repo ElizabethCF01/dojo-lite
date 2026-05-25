@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function Leaderboard() {
   return (
@@ -11,7 +11,7 @@ export default function Leaderboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FB",
+    backgroundColor: '#F5F7FB',
     padding: 16,
   },
 });

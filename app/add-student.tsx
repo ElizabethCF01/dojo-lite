@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useStudents } from '../src/store/students';
+import { useStudents } from '../src/modlets/students';
 
 export default function AddStudent() {
   const router = useRouter();

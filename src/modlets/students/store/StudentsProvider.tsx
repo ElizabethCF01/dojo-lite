@@ -1,10 +1,5 @@
 import { createContext, type ReactNode, useContext, useState } from 'react';
-
-export type Student = {
-  id: string;
-  name: string;
-  points: number;
-};
+import type { Student } from '../types';
 
 const INITIAL_STUDENTS: Student[] = [
   { id: '1', name: 'Pepito', points: -1 },

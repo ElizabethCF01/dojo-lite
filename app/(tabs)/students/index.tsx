@@ -1,7 +1,6 @@
 import { Link, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { StudentCard } from '../../../src/components/StudentCard';
-import { useStudents } from '../../../src/store/students';
+import { StudentCard, useStudents } from '../../../src/modlets/students';
 
 export default function StudentsIndex() {
   const { students, addPoint } = useStudents();

@@ -1,7 +1,7 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Avatar } from "../../../src/components/Avatar";
-import { useStudents } from "../../../src/store/students";
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Avatar } from '#shared/ui';
+import { useStudents } from '../../../src/modlets/students';
 
 export default function StudentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -46,31 +46,31 @@ export default function StudentDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FB",
+    backgroundColor: '#F5F7FB',
     padding: 16,
   },
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 24,
-    alignItems: "center",
+    alignItems: 'center',
     gap: 8,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: '#E5E7EB',
   },
   name: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#111827",
+    fontWeight: 'bold',
+    color: '#111827',
     marginTop: 8,
   },
   points: {
     fontSize: 16,
-    color: "#6B7280",
+    color: '#6B7280',
     marginBottom: 16,
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 12,
   },
   btn: {
@@ -78,15 +78,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 8,
   },
-  plus: { backgroundColor: "#10B981" },
-  minus: { backgroundColor: "#EF4444" },
+  plus: { backgroundColor: '#10B981' },
+  minus: { backgroundColor: '#EF4444' },
   btnText: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
+    color: '#FFFFFF',
+    fontWeight: 'bold',
     fontSize: 16,
   },
   missing: {
-    color: "#6B7280",
+    color: '#6B7280',
     fontSize: 16,
   },
 });

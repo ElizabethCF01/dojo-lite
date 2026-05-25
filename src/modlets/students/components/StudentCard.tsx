@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Avatar } from './Avatar';
+import { Avatar } from '#shared/ui';
 
 type StudentCardProps = {
   name: string;
