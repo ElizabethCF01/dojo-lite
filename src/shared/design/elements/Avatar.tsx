@@ -1,10 +1,11 @@
 import { Image, StyleSheet, View } from 'react-native';
+import { stripHash } from '../helpers';
 
 type AvatarProps = {
   seed: string;
   size?: number;
   backgroundColor?: string;
-  style?: string;
+  style?: 'adventurer' | 'bottts' | 'thumbs' | 'avataaars';
 };
 
 export function Avatar({
@@ -13,7 +14,7 @@ export function Avatar({
   backgroundColor = '4F46E5',
   style = 'adventurer',
 }: AvatarProps) {
-  const bg = backgroundColor.replace('#', '');
+  const bg = stripHash(backgroundColor);
   const uri = `https://api.dicebear.com/10.x/${style}/png?seed=${encodeURIComponent(
     seed,
   )}&size=${size * 2}&backgroundColor=${bg}&radius=50`;

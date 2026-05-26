@@ -1,6 +1,8 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { Button, Typography } from '#shared/design/elements';
+import { colors, fontSize, radii, spacing } from '#shared/design/foundations';
 import { useStudents } from '../src/modlets/students';
 
 export default function AddStudent() {
@@ -17,7 +19,9 @@ export default function AddStudent() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Student name</Text>
+      <Typography variant="label" color="textSecondary">
+        Student name
+      </Typography>
       <TextInput
         value={name}
         onChangeText={setName}
@@ -25,9 +29,7 @@ export default function AddStudent() {
         style={styles.input}
         autoFocus
       />
-      <Pressable style={styles.btn} onPress={submit}>
-        <Text style={styles.btnText}>Add</Text>
-      </Pressable>
+      <Button label="Add" onPress={submit} fullWidth />
     </View>
   );
 }
@@ -35,32 +37,18 @@ export default function AddStudent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FB',
-    padding: 16,
-    gap: 12,
-  },
-  label: {
-    fontSize: 14,
-    color: '#374151',
+    backgroundColor: colors.background,
+    padding: spacing.lg,
+    gap: spacing.md,
   },
   input: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 16,
-  },
-  btn: {
-    backgroundColor: '#4F46E5',
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  btnText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 16,
+    borderColor: colors.border,
+    borderRadius: radii.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    fontSize: fontSize.base,
+    color: colors.textPrimary,
   },
 });

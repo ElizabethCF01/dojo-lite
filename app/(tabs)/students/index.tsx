@@ -1,5 +1,8 @@
 import { Link, useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Typography } from '#shared/design/elements';
+import { colors, spacing } from '#shared/design/foundations';
+import { pluralize } from '#shared/design/helpers';
 import { StudentCard, useStudents } from '../../../src/modlets/students';
 
 export default function StudentsIndex() {
@@ -9,13 +12,14 @@ export default function StudentsIndex() {
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>
-        <Text style={styles.count}>{students.length} students</Text>
-        <Pressable
-          style={styles.addBtn}
+        <Typography variant="label" color="textSecondary">
+          {pluralize(students.length, 'student')}
+        </Typography>
+        <Button
+          label="Add"
+          size="sm"
           onPress={() => router.push('/add-student')}
-        >
-          <Text style={styles.addBtnText}>+ Add</Text>
-        </Pressable>
+        />
       </View>
 
       <ScrollView contentContainerStyle={styles.list}>
@@ -42,33 +46,19 @@ export default function StudentsIndex() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FB',
+    backgroundColor: colors.background,
   },
   toolbar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
-  },
-  count: {
-    color: '#6B7280',
-    fontSize: 14,
-  },
-  addBtn: {
-    backgroundColor: '#4F46E5',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 8,
-  },
-  addBtnText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    borderBottomColor: colors.border,
   },
   list: {
-    padding: 16,
+    padding: spacing.lg,
   },
 });

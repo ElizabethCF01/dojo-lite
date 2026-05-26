@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Typography } from '#shared/design/elements';
+import { colors, spacing } from '#shared/design/foundations';
 
 export default function About() {
   return (
     <View style={styles.container}>
-      <Text>About</Text>
+      <Typography variant="title">About</Typography>
     </View>
   );
 }
@@ -11,7 +13,7 @@ export default function About() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FB',
-    padding: 16,
+    backgroundColor: colors.background,
+    padding: spacing.lg,
   },
 });

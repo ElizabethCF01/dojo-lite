@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Typography } from '#shared/design/elements';
+import { colors, spacing } from '#shared/design/foundations';
 
 export default function Leaderboard() {
   return (
     <View style={styles.container}>
-      <Text>Leaderboard</Text>
+      <Typography variant="title">Leaderboard</Typography>
     </View>
   );
 }
@@ -11,7 +13,7 @@ export default function Leaderboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FB',
-    padding: 16,
+    backgroundColor: colors.background,
+    padding: spacing.lg,
   },
 });
