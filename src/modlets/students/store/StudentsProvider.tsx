@@ -1,11 +1,6 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext } from 'react';
 import type { Student } from '../types';
-
-const INITIAL_STUDENTS: Student[] = [
-  { id: '1', name: 'Pepito', points: -1 },
-  { id: '2', name: 'Lola', points: 2 },
-  { id: '3', name: 'Maripili', points: 5 },
-];
+import { useStudentStorage } from './useStudentStorage';
 
 type StudentsContextValue = {
   students: Student[];
@@ -17,7 +12,7 @@ type StudentsContextValue = {
 const StudentsContext = createContext<StudentsContextValue | null>(null);
 
 export function StudentsProvider({ children }: { children: ReactNode }) {
-  const [students, setStudents] = useState<Student[]>(INITIAL_STUDENTS);
+  const { students, isLoading, setStudents } = useStudentStorage();
 
   const addPoint = (id: string) => {
     setStudents((prev) =>
@@ -37,6 +32,8 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
       { id: String(Date.now()), name, points: 0 },
     ]);
   };
+
+  if (isLoading) return null;
 
   return (
     <StudentsContext.Provider
