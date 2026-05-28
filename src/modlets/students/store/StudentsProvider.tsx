@@ -1,4 +1,5 @@
 import { createContext, type ReactNode, useContext } from 'react';
+import { successPulse, warningPulse } from '../../../shared/services/haptics';
 import type { Student } from '../types';
 import { useStudentStorage } from './useStudentStorage';
 
@@ -18,12 +19,14 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     setStudents((prev) =>
       prev.map((s) => (s.id === id ? { ...s, points: s.points + 1 } : s)),
     );
+    successPulse();
   };
 
   const removePoint = (id: string) => {
     setStudents((prev) =>
       prev.map((s) => (s.id === id ? { ...s, points: s.points - 1 } : s)),
     );
+    warningPulse();
   };
 
   const addStudent = (name: string) => {

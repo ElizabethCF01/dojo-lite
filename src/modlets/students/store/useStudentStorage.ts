@@ -1,13 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useCallback, useEffect, useState } from "react";
-import type { Student } from "../types";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCallback, useEffect, useState } from 'react';
+import type { Student } from '../types';
 
-const STORAGE_KEY = "dojolite:students";
+const STORAGE_KEY = 'dojolite:students';
 
 const SEED_STUDENTS: Student[] = [
-  { id: "1", name: "Pepito", points: -1 },
-  { id: "2", name: "Lola", points: 2 },
-  { id: "3", name: "Maripili", points: 5 },
+  { id: '1', name: 'Pepito', points: -1 },
+  { id: '2', name: 'Lola', points: 2 },
+  { id: '3', name: 'Maripili', points: 5 },
 ];
 
 export function useStudentStorage() {
