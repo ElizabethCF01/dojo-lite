@@ -1,25 +1,26 @@
 import { StyleSheet, View } from 'react-native';
+import type { AvatarConfig } from '#shared/design/elements';
 import { Avatar, Button, Typography } from '#shared/design/elements';
-import { colors, palette, radii, spacing } from '#shared/design/foundations';
+import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints } from '#shared/design/helpers';
 
 type StudentCardProps = {
   name: string;
   points: number;
+  avatar?: AvatarConfig;
   onAddPoint: () => void;
 };
 
-function avatarBgFor(points: number): string {
-  if (points >= 5) return palette.emerald[500];
-  if (points < 0) return palette.red[500];
-  return palette.neutral[100];
-}
-
-export function StudentCard({ name, points, onAddPoint }: StudentCardProps) {
+export function StudentCard({
+  name,
+  points,
+  avatar,
+  onAddPoint,
+}: StudentCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.left}>
-        <Avatar seed={name} backgroundColor={avatarBgFor(points)} />
+        <Avatar seed={name} config={avatar} />
         <View>
           <Typography variant="label">{name}</Typography>
           <Typography variant="caption" color="textSecondary">

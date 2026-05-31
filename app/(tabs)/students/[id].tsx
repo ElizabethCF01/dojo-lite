@@ -1,18 +1,14 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Typography } from '#shared/design/elements';
-import {
-  colors,
-  palette,
-  radii,
-  spacing,
-} from '#shared/design/foundations';
+import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints } from '#shared/design/helpers';
 import { useStudents } from '../../../src/modlets/students';
 
 export default function StudentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { students, addPoint, removePoint } = useStudents();
+  const router = useRouter();
   const student = students.find((s) => s.id === id);
 
   if (!student) {
@@ -29,7 +25,18 @@ export default function StudentDetail() {
     <View style={styles.container}>
       <Stack.Screen options={{ title: student.name }} />
       <View style={styles.card}>
-        <Avatar seed={student.name} backgroundColor={palette.indigo[100]} />
+        <Avatar seed={student.name} size={100} config={student.avatar} />
+        <Button
+          label="Edit Avatar"
+          variant="ghost"
+          size="sm"
+          onPress={() =>
+            router.push({
+              pathname: '/edit-avatar',
+              params: { id: student.id },
+            })
+          }
+        />
         <Typography variant="title" style={styles.name}>
           {student.name}
         </Typography>

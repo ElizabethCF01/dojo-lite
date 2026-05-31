@@ -1,8 +1,8 @@
-import * as Haptics from "expo-haptics";
-import { Platform } from "react-native";
+import * as Haptics from 'expo-haptics';
+import { Platform } from 'react-native';
 
 export function successPulse(): void {
-  if (Platform.OS === "android") {
+  if (Platform.OS === 'android') {
     Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Confirm).catch(
       () => {},
     );
@@ -12,7 +12,7 @@ export function successPulse(): void {
 }
 
 export function warningPulse(): void {
-  if (Platform.OS === "android") {
+  if (Platform.OS === 'android') {
     Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Reject).catch(
       () => {},
     );

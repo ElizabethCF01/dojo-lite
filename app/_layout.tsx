@@ -21,6 +21,13 @@ export default function RootLayout() {
             title: 'Add student',
           }}
         />
+        <Stack.Screen
+          name="edit-avatar"
+          options={{
+            presentation: 'modal',
+            title: 'Edit Avatar',
+          }}
+        />
       </Stack>
     </StudentsProvider>
   );

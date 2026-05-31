@@ -33,6 +33,7 @@ export default function StudentsIndex() {
               <StudentCard
                 name={s.name}
                 points={s.points}
+                avatar={s.avatar}
                 onAddPoint={() => addPoint(s.id)}
               />
             </Pressable>

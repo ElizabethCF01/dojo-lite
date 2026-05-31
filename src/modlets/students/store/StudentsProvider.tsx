@@ -1,4 +1,5 @@
 import { createContext, type ReactNode, useContext } from 'react';
+import type { AvatarConfig } from '#shared/design/elements';
 import { successPulse, warningPulse } from '../../../shared/services/haptics';
 import type { Student } from '../types';
 import { useStudentStorage } from './useStudentStorage';
@@ -8,6 +9,7 @@ type StudentsContextValue = {
   addPoint: (id: string) => void;
   removePoint: (id: string) => void;
   addStudent: (name: string) => void;
+  updateAvatar: (id: string, config: AvatarConfig) => void;
 };
 
 const StudentsContext = createContext<StudentsContextValue | null>(null);
@@ -36,11 +38,17 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     ]);
   };
 
+  const updateAvatar = (id: string, config: AvatarConfig) => {
+    setStudents((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, avatar: config } : s)),
+    );
+  };
+
   if (isLoading) return null;
 
   return (
     <StudentsContext.Provider
-      value={{ students, addPoint, removePoint, addStudent }}
+      value={{ students, addPoint, removePoint, addStudent, updateAvatar }}
     >
       {children}
     </StudentsContext.Provider>
