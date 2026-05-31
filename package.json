@@ -14,7 +14,18 @@
     "web": "expo start --web",
     "lint": "biome check src",
     "format": "biome format --write src",
-    "fix": "biome check --write src"
+    "fix": "biome check --write src",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "moduleNameMapper": {
+      "^#shared/(.+)$": "<rootDir>/src/shared/$1/index.ts",
+      "^@expo/vector-icons$": "<rootDir>/__mocks__/vectorIconsMock.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
@@ -31,8 +42,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^29.5.14",
     "@types/react": "~19.1.0",
+    "jest": "^29.7.0",
+    "jest-expo": "^56.0.4",
     "knip": "^6.14.1",
+    "react-test-renderer": "19.1.0",
     "typescript": "~5.9.2"
   },
   "private": true
