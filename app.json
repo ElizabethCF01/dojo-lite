@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.elizabeth001.dojolite"
+      "bundleIdentifier": "com.elizabeth001.dojolite",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.elizabeth001.dojolite",
