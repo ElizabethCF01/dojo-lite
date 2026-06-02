@@ -1,8 +1,4 @@
-export {
-  ColorSection,
-  ColorSwatch,
-  TraitSection,
-} from './components/AvatarEditorParts';
+export { ColorSection, TraitSection } from './components/AvatarEditorParts';
 export type { ColorOption } from './components/avatarOptions';
 export {
   BG_COLORS,

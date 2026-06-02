@@ -94,7 +94,7 @@ export function ColorSection({
   );
 }
 
-export function ColorSwatch({
+function ColorSwatch({
   color,
   selected,
   onPress,
