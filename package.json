@@ -13,9 +13,13 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "biome check src",
+    "lint-typecheck": "tsc --noEmit",
+    "lint-biome": "biome check src/",
+    "lint-knip": "knip",
     "format": "biome format --write src",
     "fix": "biome check --write src",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest --ci"
   },
   "jest": {
     "preset": "jest-expo",

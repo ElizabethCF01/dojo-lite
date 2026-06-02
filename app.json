@@ -30,6 +30,13 @@
     "scheme": "dojolite",
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fb3c1791-e3d8-465c-af30-2e4b968c4681"
+      }
+    },
+    "owner": "elizabeth001"
   }
 }
