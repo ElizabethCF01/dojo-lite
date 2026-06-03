@@ -11,5 +11,11 @@ export {
   SKIN_COLORS,
 } from './components/avatarOptions';
 export { StudentCard } from './components/StudentCard';
+export type {
+  BeltTier,
+  LeaderboardEntry,
+  LeaderboardSection,
+} from './leaderboard';
+export { BELT_TIERS, buildLeaderboardSections } from './leaderboard';
 export { StudentsProvider, useStudents } from './store/StudentsProvider';
 export type { Student } from './types';
