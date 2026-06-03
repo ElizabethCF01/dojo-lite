@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { StudentsProvider } from '../src/modlets/students';
+import { StudentsProvider } from '#features/students';
 
 export default function RootLayout() {
   return (

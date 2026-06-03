@@ -7,14 +7,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { type Student, StudentCard, useStudents } from '#features/students';
 import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, spacing } from '#shared/design/foundations';
 import { pluralize } from '#shared/design/helpers';
-import {
-  type Student,
-  StudentCard,
-  useStudents,
-} from '../../../src/modlets/students';
 
 export default function StudentsIndex() {
   const { students, addPoint } = useStudents();

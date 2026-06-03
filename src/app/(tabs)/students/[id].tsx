@@ -1,9 +1,9 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
+import { useStudents } from '#features/students';
 import { Avatar, Button, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints } from '#shared/design/helpers';
-import { useStudents } from '../../../src/modlets/students';
 
 export default function StudentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();

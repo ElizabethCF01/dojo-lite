@@ -1,4 +1,4 @@
-import type { Student } from "./types";
+import type { Student } from './types';
 
 export type BeltTier = {
   key: string;
@@ -7,10 +7,10 @@ export type BeltTier = {
 };
 
 export const BELT_TIERS: BeltTier[] = [
-  { key: "black", title: "Black Belt", min: 20 },
-  { key: "brown", title: "Brown Belt", min: 10 },
-  { key: "green", title: "Green Belt", min: 5 },
-  { key: "white", title: "White Belt", min: 0 },
+  { key: 'black', title: 'Black Belt', min: 20 },
+  { key: 'brown', title: 'Brown Belt', min: 10 },
+  { key: 'green', title: 'Green Belt', min: 5 },
+  { key: 'white', title: 'White Belt', min: 0 },
 ];
 
 export type LeaderboardEntry = Student & { rank: number };
@@ -22,7 +22,7 @@ export type LeaderboardSection = {
 };
 
 function tierKeyFor(points: number): string {
-  return BELT_TIERS.find((tier) => points >= tier.min)?.key ?? "white";
+  return BELT_TIERS.find((tier) => points >= tier.min)?.key ?? 'white';
 }
 
 export function buildLeaderboardSections(

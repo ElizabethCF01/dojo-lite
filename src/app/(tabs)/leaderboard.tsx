@@ -1,14 +1,14 @@
-import { FontAwesome6 } from "@expo/vector-icons";
-import { useCallback, useMemo, useState } from "react";
-import { RefreshControl, SectionList, StyleSheet, View } from "react-native";
-import { Avatar, Flair, Icon, Typography } from "#shared/design/elements";
-import { colors, radii, spacing } from "#shared/design/foundations";
-import { formatPoints, pluralize } from "#shared/design/helpers";
+import { FontAwesome6 } from '@expo/vector-icons';
+import { useCallback, useMemo, useState } from 'react';
+import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 import {
   buildLeaderboardSections,
   type LeaderboardEntry,
   useStudents,
-} from "../../src/modlets/students";
+} from '#features/students';
+import { Avatar, Flair, Icon, Typography } from '#shared/design/elements';
+import { colors, radii, spacing } from '#shared/design/foundations';
+import { formatPoints, pluralize } from '#shared/design/helpers';
 
 export default function Leaderboard() {
   const { students } = useStudents();
@@ -37,7 +37,7 @@ export default function Leaderboard() {
         renderSectionHeader={({ section }) => (
           <View style={styles.sectionHeader}>
             <Typography variant="subtitle">{section.title}</Typography>
-            <Flair label={pluralize(section.data.length, "student")} />
+            <Flair label={pluralize(section.data.length, 'student')} />
           </View>
         )}
         renderItem={({ item }) => <LeaderboardRow entry={item} />}
@@ -58,9 +58,9 @@ export default function Leaderboard() {
 }
 
 const MEDAL_COLORS: Record<number, string> = {
-  1: "#F59E0B",
-  2: "#9CA3AF",
-  3: "#B45309",
+  1: '#F59E0B',
+  2: '#9CA3AF',
+  3: '#B45309',
 };
 
 function LeaderboardRow({ entry }: { entry: LeaderboardEntry }) {
@@ -101,15 +101,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   sectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: colors.background,
     paddingVertical: spacing.sm,
   },
   row: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: spacing.md,
     backgroundColor: colors.surface,
     borderRadius: radii.lg,
@@ -120,16 +120,16 @@ const styles = StyleSheet.create({
   },
   rank: {
     width: 24,
-    alignItems: "center",
+    alignItems: 'center',
   },
   name: {
     flex: 1,
   },
   empty: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing.sm,
-    paddingTop: spacing["3xl"],
+    paddingTop: spacing['3xl'],
   },
 });

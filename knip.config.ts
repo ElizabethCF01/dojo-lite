@@ -7,7 +7,7 @@ const config: KnipConfiguration = {
     "src/shared/design/elements/index.ts",
     "src/shared/design/foundations/index.ts",
     "src/shared/design/helpers/index.ts",
-    "src/modlets/students/index.ts",
+    "src/features/students/index.ts",
   ],
 };
 

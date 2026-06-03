@@ -1,9 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import type { AvatarConfig } from '#shared/design/elements';
-import { Avatar, Button, Typography } from '#shared/design/elements';
-import { colors, spacing } from '#shared/design/foundations';
 import {
   BG_COLORS,
   ColorSection,
@@ -16,7 +13,10 @@ import {
   SKIN_COLORS,
   TraitSection,
   useStudents,
-} from '../src/modlets/students';
+} from '#features/students';
+import type { AvatarConfig } from '#shared/design/elements';
+import { Avatar, Button, Typography } from '#shared/design/elements';
+import { colors, spacing } from '#shared/design/foundations';
 
 const HAIR_TRAIT = HAIR_OPTIONS.map((value) => ({ value }));
 const EYES_TRAIT = EYES_OPTIONS.map((value) => ({ value }));

@@ -5,7 +5,8 @@
   "type": "module",
   "packageManager": "pnpm@10.24.0",
   "imports": {
-    "#shared/*": "./src/shared/*/index.ts"
+    "#shared/*": "./src/shared/*/index.ts",
+    "#features/*": "./src/features/*/index.ts"
   },
   "scripts": {
     "start": "expo start",
@@ -25,6 +26,7 @@
     "preset": "jest-expo",
     "moduleNameMapper": {
       "^#shared/(.+)$": "<rootDir>/src/shared/$1/index.ts",
+      "^#features/(.+)$": "<rootDir>/src/features/$1/index.ts",
       "^@expo/vector-icons$": "<rootDir>/__mocks__/vectorIconsMock.js"
     },
     "transformIgnorePatterns": [
