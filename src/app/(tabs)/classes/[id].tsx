@@ -1,17 +1,43 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { useAuth } from '#features/auth';
-import { type RosterStudent, useRoster } from '#features/classes';
-import { Avatar, Button, Icon, Typography } from '#shared/design/elements';
+import {
+  type RosterStudent,
+  type Standing,
+  useLeaderboard,
+  useRoster,
+} from '#features/classes';
+import {
+  Avatar,
+  Button,
+  Flair,
+  Icon,
+  Typography,
+} from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints } from '#shared/design/helpers';
 
 export default function ClassDetail() {
   const { id, name } = useLocalSearchParams<{ id: string; name?: string }>();
   const { user } = useAuth();
-  const { students, loading, error, award } = useRoster(id);
 
-  const isTeacher = user?.role === 'teacher';
+  return (
+    <View style={styles.container}>
+      <Stack.Screen options={{ title: name ?? 'Class' }} />
+      {user?.role === 'teacher' ? (
+        <TeacherView classId={id} />
+      ) : (
+        <StudentView classId={id} selfId={user?.id} />
+      )}
+    </View>
+  );
+}
+
+function TeacherView({ classId }: { classId: string }) {
+  const { students, loading, error, award } = useRoster(classId);
+
+  if (loading) return <Centered loading />;
+  if (error) return <Centered error={error} />;
 
   const renderItem = ({ item }: { item: RosterStudent }) => (
     <View style={styles.row}>
@@ -24,55 +50,93 @@ export default function ClassDetail() {
           </Typography>
         </View>
       </View>
-      {isTeacher && (
-        <View style={styles.actions}>
-          <Button
-            label="-1"
-            variant="danger"
-            size="sm"
-            onPress={() => award(item.id, -1)}
-          />
-          <Button
-            label="+1"
-            variant="success"
-            size="sm"
-            onPress={() => award(item.id, 1)}
-          />
-        </View>
-      )}
+      <View style={styles.actions}>
+        <Button
+          label="-1"
+          variant="danger"
+          size="sm"
+          onPress={() => award(item.id, -1)}
+        />
+        <Button
+          label="+1"
+          variant="success"
+          size="sm"
+          onPress={() => award(item.id, 1)}
+        />
+      </View>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ title: name ?? 'Class' }} />
+    <FlatList
+      data={students}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.list}
+      renderItem={renderItem}
+      ListEmptyComponent={<EmptyRoster />}
+    />
+  );
+}
 
+function StudentView({
+  classId,
+  selfId,
+}: {
+  classId: string;
+  selfId?: string;
+}) {
+  const { students, loading, error } = useLeaderboard(classId);
+
+  if (loading) return <Centered loading />;
+  if (error) return <Centered error={error} />;
+
+  const ranked = [...students].sort((a, b) => b.points - a.points);
+
+  const renderItem = ({ item, index }: { item: Standing; index: number }) => (
+    <View style={[styles.row, item.id === selfId && styles.selfRow]}>
+      <View style={styles.left}>
+        <Typography variant="label" color="textSecondary">
+          {index + 1}
+        </Typography>
+        <Avatar seed={item.name} config={item.avatar} />
+        <Typography variant="label">{item.name}</Typography>
+      </View>
+      <Flair label={formatPoints(item.points)} tone="brand" />
+    </View>
+  );
+
+  return (
+    <FlatList
+      data={ranked}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.list}
+      renderItem={renderItem}
+      ListEmptyComponent={<EmptyRoster />}
+    />
+  );
+}
+
+function Centered({ loading, error }: { loading?: boolean; error?: string }) {
+  return (
+    <View style={styles.centered}>
       {loading ? (
-        <View style={styles.centered}>
-          <ActivityIndicator color={colors.brand} />
-        </View>
-      ) : error ? (
-        <View style={styles.centered}>
-          <Typography variant="label" color="danger">
-            {error}
-          </Typography>
-        </View>
+        <ActivityIndicator color={colors.brand} />
       ) : (
-        <FlatList
-          data={students}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.list}
-          renderItem={renderItem}
-          ListEmptyComponent={
-            <View style={styles.empty}>
-              <Icon name="user-group" size={32} color="textMuted" />
-              <Typography variant="label" color="textSecondary">
-                No students enrolled yet
-              </Typography>
-            </View>
-          }
-        />
+        <Typography variant="label" color="danger">
+          {error}
+        </Typography>
       )}
+    </View>
+  );
+}
+
+function EmptyRoster() {
+  return (
+    <View style={styles.empty}>
+      <Icon name="user-group" size={32} color="textMuted" />
+      <Typography variant="label" color="textSecondary">
+        No students enrolled yet
+      </Typography>
     </View>
   );
 }
@@ -101,6 +165,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  selfRow: {
+    borderColor: colors.brand,
   },
   left: {
     flexDirection: 'row',
