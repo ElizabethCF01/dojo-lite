@@ -16,7 +16,7 @@ import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, fontSize, radii, spacing } from '#shared/design/foundations';
 
 export default function ClassesIndex() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { classes, loading, error, refresh, create, join } = useClasses();
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
@@ -77,13 +77,6 @@ export default function ClassesIndex() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.toolbar}>
-        <Typography variant="label" color="textSecondary">
-          {user?.name ?? user?.email}
-        </Typography>
-        <Button label="Log out" variant="ghost" size="sm" onPress={logout} />
-      </View>
-
       <View style={styles.createRow}>
         <TextInput
           value={input}
@@ -142,16 +135,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.background,
-  },
-  toolbar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    backgroundColor: colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
   createRow: {
     flexDirection: 'row',
