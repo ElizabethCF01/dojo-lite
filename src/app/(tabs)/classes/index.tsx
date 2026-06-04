@@ -1,7 +1,9 @@
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Pressable,
   RefreshControl,
   StyleSheet,
   TextInput,
@@ -48,12 +50,20 @@ export default function ClassesIndex() {
   }
 
   const renderItem = ({ item }: { item: ClassItem }) => (
-    <View style={styles.card}>
-      <Typography variant="subtitle">{item.name}</Typography>
-      <Typography variant="caption" color="textSecondary">
-        Join code: {item.joinCode}
-      </Typography>
-    </View>
+    <Link
+      href={{
+        pathname: '/classes/[id]',
+        params: { id: item.id, name: item.name },
+      }}
+      asChild
+    >
+      <Pressable style={styles.card}>
+        <Typography variant="subtitle">{item.name}</Typography>
+        <Typography variant="caption" color="textSecondary">
+          Join code: {item.joinCode}
+        </Typography>
+      </Pressable>
+    </Link>
   );
 
   return (

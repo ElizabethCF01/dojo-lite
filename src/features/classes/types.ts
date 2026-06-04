@@ -5,3 +5,10 @@ export type ClassItem = {
   joinCode: string;
   createdAt: string;
 };
+
+export type RosterStudent = {
+  id: string;
+  name: string;
+  email: string;
+  enrolledAt: string;
+};

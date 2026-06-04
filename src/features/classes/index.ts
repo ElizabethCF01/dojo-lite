@@ -1,2 +1,3 @@
+export { getRoster } from './api';
 export { useClasses } from './hooks/useClasses';
-export type { ClassItem } from './types';
+export type { ClassItem, RosterStudent } from './types';

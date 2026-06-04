@@ -12,6 +12,7 @@ export default function ClassesLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: 'Classes' }} />
+        <Stack.Screen name="[id]" options={{ title: 'Class' }} />
       </Stack>
     </AuthGate>
   );
