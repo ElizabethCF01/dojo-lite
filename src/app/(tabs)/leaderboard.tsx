@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import {
   Pressable,
   RefreshControl,
-  ScrollView,
   SectionList,
   StyleSheet,
   View,
@@ -31,11 +30,7 @@ export default function Leaderboard() {
   return (
     <View style={styles.container}>
       {classes.length > 1 && (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.tabs}
-        >
+        <View style={styles.tabs}>
           {classes.map((c) => {
             const active = c.id === classId;
             return (
@@ -47,13 +42,14 @@ export default function Leaderboard() {
                 <Typography
                   variant="label"
                   color={active ? 'textOnBrand' : 'textSecondary'}
+                  numberOfLines={1}
                 >
                   {c.name}
                 </Typography>
               </Pressable>
             );
           })}
-        </ScrollView>
+        </View>
       )}
 
       <SectionList
@@ -127,11 +123,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   tabs: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacing.sm,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,
   },
   chip: {
+    alignSelf: 'flex-start',
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     borderRadius: radii.full,
