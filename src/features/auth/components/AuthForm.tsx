@@ -15,6 +15,7 @@ export function AuthForm() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState<Role>('teacher');
+  const [joinCode, setJoinCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -30,6 +31,8 @@ export function AuthForm() {
           password,
           name: name.trim(),
           role,
+          joinCode:
+            role === 'student' ? joinCode.trim() || undefined : undefined,
         });
       }
     } catch (err) {
@@ -67,6 +70,15 @@ export function AuthForm() {
               onPress={() => setRole('student')}
             />
           </View>
+          {role === 'student' && (
+            <TextInput
+              value={joinCode}
+              onChangeText={setJoinCode}
+              placeholder="Class code (optional)"
+              autoCapitalize="characters"
+              style={styles.input}
+            />
+          )}
         </>
       )}
 

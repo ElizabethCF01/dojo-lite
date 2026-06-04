@@ -13,6 +13,7 @@ export function register(input: {
   password: string;
   name: string;
   role: Role;
+  joinCode?: string;
 }): Promise<AuthResponse> {
   return apiFetch<AuthResponse>('/auth/register', {
     method: 'POST',

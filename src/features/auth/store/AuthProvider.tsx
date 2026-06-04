@@ -27,6 +27,7 @@ type AuthContextValue = {
     password: string;
     name: string;
     role: Role;
+    joinCode?: string;
   }) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -78,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       password: string;
       name: string;
       role: Role;
+      joinCode?: string;
     }) => {
       const { token, user: nextUser } = await authApi.register(input);
       await apply(token, nextUser);
