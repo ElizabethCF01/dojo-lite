@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, spacing } from '#shared/design/foundations';
 
@@ -13,9 +14,18 @@ const SLIDES = [
 
 export default function Onboarding() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top + spacing['3xl'],
+          paddingBottom: insets.bottom + spacing['2xl'],
+        },
+      ]}
+    >
       <View style={styles.hero}>
         <Icon name="graduation-cap" size={72} color="brand" />
         <Typography variant="display">DojoLite</Typography>
@@ -40,17 +50,15 @@ export default function Onboarding() {
         fullWidth
         onPress={() => router.push('/login')}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: {
+  container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingHorizontal: spacing.xl,
-    paddingTop: spacing['3xl'],
-    paddingBottom: spacing['2xl'],
+    paddingHorizontal: spacing['2xl'],
     justifyContent: 'space-between',
   },
   hero: {
