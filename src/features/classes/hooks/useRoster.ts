@@ -11,6 +11,11 @@ export function useRoster(classId: string) {
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
+    if (!classId) {
+      setStudents([]);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getRoster(classId);
       setStudents(data);

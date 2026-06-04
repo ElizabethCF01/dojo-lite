@@ -1,38 +1,68 @@
 import { FontAwesome6 } from '@expo/vector-icons';
-import { useCallback, useMemo, useState } from 'react';
-import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import {
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  SectionList,
+  StyleSheet,
+  View,
+} from 'react-native';
+import { useClasses, useRoster } from '#features/classes';
 import {
   buildLeaderboardSections,
   type LeaderboardEntry,
-  useStudents,
 } from '#features/students';
 import { Avatar, Flair, Icon, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints, pluralize } from '#shared/design/helpers';
 
 export default function Leaderboard() {
-  const { students } = useStudents();
-  const [refreshing, setRefreshing] = useState(false);
+  const { classes } = useClasses();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const classId = selectedId ?? classes[0]?.id ?? '';
+  const { students, loading, refresh } = useRoster(classId);
 
   const sections = useMemo(
     () => buildLeaderboardSections(students),
     [students],
   );
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 600);
-  }, []);
-
   return (
     <View style={styles.container}>
+      {classes.length > 1 && (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabs}
+        >
+          {classes.map((c) => {
+            const active = c.id === classId;
+            return (
+              <Pressable
+                key={c.id}
+                onPress={() => setSelectedId(c.id)}
+                style={[styles.chip, active && styles.chipActive]}
+              >
+                <Typography
+                  variant="label"
+                  color={active ? 'textOnBrand' : 'textSecondary'}
+                >
+                  {c.name}
+                </Typography>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+      )}
+
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled
         contentContainerStyle={styles.list}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
         }
         renderSectionHeader={({ section }) => (
           <View style={styles.sectionHeader}>
@@ -95,6 +125,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  tabs: {
+    gap: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+  },
+  chip: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  chipActive: {
+    backgroundColor: colors.brand,
+    borderColor: colors.brand,
   },
   list: {
     padding: spacing.lg,
