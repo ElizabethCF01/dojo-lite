@@ -1,5 +1,5 @@
 import { apiFetch } from '#shared/api';
-import type { ClassItem, RosterStudent } from './types';
+import type { ClassItem, RosterStudent, Standing } from './types';
 
 export function listClasses(): Promise<{ classes: ClassItem[] }> {
   return apiFetch<{ classes: ClassItem[] }>('/classes');
@@ -20,6 +20,16 @@ export async function getRoster(classId: string): Promise<RosterStudent[]> {
   const data = await apiFetch<{ students: RawRosterStudent[] }>(
     `/classes/${classId}/students`,
   );
+  return data.students.map(({ avatar, ...rest }) => ({
+    ...rest,
+    avatar: avatar ? JSON.parse(avatar) : undefined,
+  }));
+}
+
+export async function getLeaderboard(classId: string): Promise<Standing[]> {
+  const data = await apiFetch<{
+    students: (Omit<Standing, 'avatar'> & { avatar: string | null })[];
+  }>(`/classes/${classId}/leaderboard`);
   return data.students.map(({ avatar, ...rest }) => ({
     ...rest,
     avatar: avatar ? JSON.parse(avatar) : undefined,

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { useClasses, useRoster } from '#features/classes';
+import { useClasses, useLeaderboard } from '#features/classes';
 import {
   buildLeaderboardSections,
   type LeaderboardEntry,
@@ -21,7 +21,7 @@ export default function Leaderboard() {
   const { classes } = useClasses();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const classId = selectedId ?? classes[0]?.id ?? '';
-  const { students, loading, refresh } = useRoster(classId);
+  const { students, loading, refresh } = useLeaderboard(classId);
 
   const sections = useMemo(
     () => buildLeaderboardSections(students),

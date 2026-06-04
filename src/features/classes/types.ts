@@ -16,3 +16,10 @@ export type RosterStudent = {
   avatar?: AvatarConfig;
   enrolledAt: string;
 };
+
+export type Standing = {
+  id: string;
+  name: string;
+  points: number;
+  avatar?: AvatarConfig;
+};
