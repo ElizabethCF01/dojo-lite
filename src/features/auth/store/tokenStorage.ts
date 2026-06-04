@@ -29,6 +29,10 @@ export async function storeSession(
   await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
+export async function persistUser(user: AuthUser): Promise<void> {
+  await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+}
+
 export async function clearSession(): Promise<void> {
   if (isWeb) {
     await AsyncStorage.removeItem(TOKEN_KEY);

@@ -7,12 +7,14 @@ import {
   useState,
 } from 'react';
 import { setAuthToken } from '#shared/api';
+import type { AvatarConfig } from '#shared/design/elements';
 import * as authApi from '../api';
 import type { AuthUser, Role } from '../types';
 import {
   clearSession,
   getStoredToken,
   getStoredUser,
+  persistUser,
   storeSession,
 } from './tokenStorage';
 
@@ -29,6 +31,7 @@ type AuthContextValue = {
     role: Role;
     joinCode?: string;
   }) => Promise<void>;
+  updateAvatar: (avatar: AvatarConfig) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -87,6 +90,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [apply],
   );
 
+  const updateAvatar = useCallback(async (avatar: AvatarConfig) => {
+    await authApi.updateAvatar(avatar);
+    setUser((prev) => {
+      if (!prev) return prev;
+      const next = { ...prev, avatar };
+      persistUser(next);
+      return next;
+    });
+  }, []);
+
   const logout = useCallback(async () => {
     setAuthToken(null);
     await clearSession();
@@ -95,7 +108,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, status, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, status, login, register, updateAvatar, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,3 +1,5 @@
+import type { AvatarConfig } from '#shared/design/elements';
+
 export type Role = 'teacher' | 'student';
 
 export type AuthUser = {
@@ -5,6 +7,7 @@ export type AuthUser = {
   email: string;
   name: string;
   role: Role;
+  avatar?: AvatarConfig;
 };
 
 export type AuthResponse = {
