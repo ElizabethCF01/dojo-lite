@@ -12,10 +12,27 @@ export function createClass(name: string): Promise<{ class: ClassItem }> {
   });
 }
 
-export function getRoster(
-  classId: string,
-): Promise<{ students: RosterStudent[] }> {
-  return apiFetch<{ students: RosterStudent[] }>(
+type RawRosterStudent = Omit<RosterStudent, 'avatar'> & {
+  avatar: string | null;
+};
+
+export async function getRoster(classId: string): Promise<RosterStudent[]> {
+  const data = await apiFetch<{ students: RawRosterStudent[] }>(
     `/classes/${classId}/students`,
   );
+  return data.students.map(({ avatar, ...rest }) => ({
+    ...rest,
+    avatar: avatar ? JSON.parse(avatar) : undefined,
+  }));
+}
+
+export function addPoints(
+  classId: string,
+  studentId: string,
+  delta: 1 | -1,
+): Promise<{ student: { studentId: string; points: number } }> {
+  return apiFetch(`/classes/${classId}/points`, {
+    method: 'POST',
+    body: { studentId, delta },
+  });
 }

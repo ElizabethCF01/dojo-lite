@@ -6,9 +6,13 @@ export type ClassItem = {
   createdAt: string;
 };
 
+import type { AvatarConfig } from '#shared/design/elements';
+
 export type RosterStudent = {
   id: string;
   name: string;
   email: string;
+  points: number;
+  avatar?: AvatarConfig;
   enrolledAt: string;
 };

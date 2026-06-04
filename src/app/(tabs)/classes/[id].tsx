@@ -1,32 +1,47 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import { getRoster, type RosterStudent } from '#features/classes';
-import { ApiError } from '#shared/api';
-import { Icon, Typography } from '#shared/design/elements';
+import { useAuth } from '#features/auth';
+import { type RosterStudent, useRoster } from '#features/classes';
+import { Avatar, Button, Icon, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
+import { formatPoints } from '#shared/design/helpers';
 
 export default function ClassDetail() {
   const { id, name } = useLocalSearchParams<{ id: string; name?: string }>();
-  const [students, setStudents] = useState<RosterStudent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
+  const { students, loading, error, award } = useRoster(id);
 
-  const load = useCallback(async () => {
-    setError(null);
-    try {
-      const data = await getRoster(id);
-      setStudents(data.students);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Failed to load roster');
-    } finally {
-      setLoading(false);
-    }
-  }, [id]);
+  const isTeacher = user?.role === 'teacher';
 
-  useEffect(() => {
-    load();
-  }, [load]);
+  const renderItem = ({ item }: { item: RosterStudent }) => (
+    <View style={styles.row}>
+      <View style={styles.left}>
+        <Avatar seed={item.name} config={item.avatar} />
+        <View>
+          <Typography variant="label">{item.name}</Typography>
+          <Typography variant="caption" color="textSecondary">
+            {formatPoints(item.points)}
+          </Typography>
+        </View>
+      </View>
+      {isTeacher && (
+        <View style={styles.actions}>
+          <Button
+            label="-1"
+            variant="danger"
+            size="sm"
+            onPress={() => award(item.id, -1)}
+          />
+          <Button
+            label="+1"
+            variant="success"
+            size="sm"
+            onPress={() => award(item.id, 1)}
+          />
+        </View>
+      )}
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -47,14 +62,7 @@ export default function ClassDetail() {
           data={students}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.list}
-          renderItem={({ item }) => (
-            <View style={styles.row}>
-              <Typography variant="body">{item.name}</Typography>
-              <Typography variant="caption" color="textSecondary">
-                {item.email}
-              </Typography>
-            </View>
-          )}
+          renderItem={renderItem}
           ListEmptyComponent={
             <View style={styles.empty}>
               <Icon name="user-group" size={32} color="textMuted" />
@@ -86,11 +94,22 @@ const styles = StyleSheet.create({
   },
   row: {
     backgroundColor: colors.surface,
-    borderRadius: radii.md,
+    borderRadius: radii.lg,
     borderWidth: 1,
     borderColor: colors.border,
-    padding: spacing.lg,
-    gap: spacing.xs,
+    padding: spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  left: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: spacing.sm,
   },
   empty: {
     flex: 1,
