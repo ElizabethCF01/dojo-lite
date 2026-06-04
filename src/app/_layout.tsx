@@ -2,7 +2,6 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { AuthProvider, useAuth } from '#features/auth';
-import { StudentsProvider } from '#features/students';
 import { colors } from '#shared/design/foundations';
 
 function RootNavigator() {
@@ -29,14 +28,6 @@ function RootNavigator() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Protected guard={authed}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="add-student"
-          options={{ presentation: 'modal', title: 'Add student' }}
-        />
-        <Stack.Screen
-          name="edit-avatar"
-          options={{ presentation: 'modal', title: 'Edit Avatar' }}
-        />
       </Stack.Protected>
       <Stack.Protected guard={!authed}>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -48,10 +39,8 @@ function RootNavigator() {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <StudentsProvider>
-        <StatusBar style="light" />
-        <RootNavigator />
-      </StudentsProvider>
+      <StatusBar style="light" />
+      <RootNavigator />
     </AuthProvider>
   );
 }

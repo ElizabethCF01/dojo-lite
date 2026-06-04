@@ -12,16 +12,6 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="students"
-        options={{
-          title: 'Students',
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome6 name="users" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="classes"
         options={{
           title: 'Classes',
