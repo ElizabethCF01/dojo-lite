@@ -18,7 +18,9 @@ export default function Profile() {
         <Typography variant="body" color="textSecondary">
           {user.email}
         </Typography>
-        <Flair label={user.role} tone="brand" />
+        <View>
+          <Flair label={user.role} tone="brand" />
+        </View>
         <Button
           label="Edit avatar"
           variant="ghost"
