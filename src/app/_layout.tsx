@@ -28,6 +28,10 @@ function RootNavigator() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Protected guard={authed}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="edit-avatar"
+          options={{ presentation: 'modal', title: 'Edit Avatar' }}
+        />
       </Stack.Protected>
       <Stack.Protected guard={!authed}>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />

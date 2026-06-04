@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { useAuth } from '#features/auth';
 import { Avatar, Button, Flair, Typography } from '#shared/design/elements';
@@ -5,6 +6,7 @@ import { colors, spacing } from '#shared/design/foundations';
 
 export default function Profile() {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   if (!user) return null;
 
@@ -17,6 +19,11 @@ export default function Profile() {
           {user.email}
         </Typography>
         <Flair label={user.role} tone="brand" />
+        <Button
+          label="Edit avatar"
+          variant="ghost"
+          onPress={() => router.push('/edit-avatar')}
+        />
       </View>
 
       <Button label="Log out" variant="danger" onPress={logout} fullWidth />
