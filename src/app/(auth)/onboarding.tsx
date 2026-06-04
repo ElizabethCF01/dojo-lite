@@ -1,8 +1,10 @@
 import { useRouter } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, spacing } from '#shared/design/foundations';
+
+const classImage = require('../../../assets/images/class-image.png');
 
 const SLIDES = [
   {
@@ -27,7 +29,7 @@ export default function Onboarding() {
       ]}
     >
       <View style={styles.hero}>
-        <Icon name="graduation-cap" size={72} color="brand" />
+        <Image source={classImage} style={styles.image} resizeMode="contain" />
         <Typography variant="display">DojoLite</Typography>
         <Typography variant="body" color="textSecondary">
           Your classroom, organized.
@@ -64,7 +66,11 @@ const styles = StyleSheet.create({
   hero: {
     alignItems: 'center',
     gap: spacing.sm,
-    paddingTop: spacing['3xl'],
+  },
+  image: {
+    width: '100%',
+    height: 240,
+    marginBottom: spacing.md,
   },
   slides: {
     gap: spacing.lg,
