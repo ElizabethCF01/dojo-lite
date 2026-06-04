@@ -27,19 +27,21 @@ function buildUrl(
   config?: AvatarConfig,
 ): string {
   const bg = stripHash(config?.backgroundColor ?? backgroundColor);
+  // No unencoded `[]` in the query: React Native's native Image loader rejects
+  // such URLs. DiceBear accepts the bracket-free form for array params too.
   let url =
     `https://api.dicebear.com/10.x/${style}/png` +
     `?seed=${encodeURIComponent(seed)}` +
     `&size=${size * 2}` +
     `&radius=50` +
-    `&backgroundColor[]=${bg}`;
+    `&backgroundColor=${bg}`;
 
   if (config?.hair) url += `&hairVariant=${config.hair}`;
-  if (config?.hairColor) url += `&hairColor[]=${config.hairColor}`;
+  if (config?.hairColor) url += `&hairColor=${config.hairColor}`;
   if (config?.eyes) url += `&eyesVariant=${config.eyes}`;
   if (config?.eyebrows) url += `&eyebrowsVariant=${config.eyebrows}`;
   if (config?.mouth) url += `&mouthVariant=${config.mouth}`;
-  if (config?.skinColor) url += `&skinColor[]=${config.skinColor}`;
+  if (config?.skinColor) url += `&skinColor=${config.skinColor}`;
 
   return url;
 }
