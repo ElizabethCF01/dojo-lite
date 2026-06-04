@@ -26,6 +26,7 @@ function RootNavigator() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Protected guard={authed}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
