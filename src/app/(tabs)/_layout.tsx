@@ -40,15 +40,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="about"
-        options={{
-          title: 'About',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome6 name="circle-info" color={color} size={size} />
-          ),
-        }}
-      />
     </Tabs>
   );
 }
