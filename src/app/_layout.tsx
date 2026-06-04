@@ -1,37 +1,65 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from '#features/auth';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { AuthProvider, useAuth } from '#features/auth';
 import { StudentsProvider } from '#features/students';
+import { colors } from '#shared/design/foundations';
+
+function RootNavigator() {
+  const { status } = useAuth();
+
+  if (status === 'loading') {
+    return (
+      <View style={styles.splash}>
+        <ActivityIndicator color={colors.brand} />
+      </View>
+    );
+  }
+
+  const authed = status === 'authed';
+
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: '#4F46E5' },
+        headerTintColor: '#FFFFFF',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Protected guard={authed}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="add-student"
+          options={{ presentation: 'modal', title: 'Add student' }}
+        />
+        <Stack.Screen
+          name="edit-avatar"
+          options={{ presentation: 'modal', title: 'Edit Avatar' }}
+        />
+      </Stack.Protected>
+      <Stack.Protected guard={!authed}>
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      </Stack.Protected>
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   return (
     <AuthProvider>
       <StudentsProvider>
         <StatusBar style="light" />
-        <Stack
-          screenOptions={{
-            headerStyle: { backgroundColor: '#4F46E5' },
-            headerTintColor: '#FFFFFF',
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
-        >
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="add-student"
-            options={{
-              presentation: 'modal',
-              title: 'Add student',
-            }}
-          />
-          <Stack.Screen
-            name="edit-avatar"
-            options={{
-              presentation: 'modal',
-              title: 'Edit Avatar',
-            }}
-          />
-        </Stack>
+        <RootNavigator />
       </StudentsProvider>
     </AuthProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  splash: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.background,
+  },
+});
