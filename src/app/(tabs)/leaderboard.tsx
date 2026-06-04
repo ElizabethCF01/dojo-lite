@@ -1,5 +1,6 @@
 import { FontAwesome6 } from '@expo/vector-icons';
-import { useMemo, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useMemo, useState } from 'react';
 import {
   Pressable,
   RefreshControl,
@@ -17,10 +18,21 @@ import { colors, radii, spacing } from '#shared/design/foundations';
 import { formatPoints, pluralize } from '#shared/design/helpers';
 
 export default function Leaderboard() {
-  const { classes } = useClasses();
+  const { classes, refresh: refreshClasses } = useClasses();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const classId = selectedId ?? classes[0]?.id ?? '';
-  const { students, loading, refresh } = useLeaderboard(classId);
+  const {
+    students,
+    loading,
+    refresh: refreshStandings,
+  } = useLeaderboard(classId);
+
+  const refresh = useCallback(() => {
+    refreshClasses();
+    refreshStandings();
+  }, [refreshClasses, refreshStandings]);
+
+  useFocusEffect(refresh);
 
   const sections = useMemo(
     () => buildLeaderboardSections(students),
