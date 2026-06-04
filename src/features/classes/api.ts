@@ -26,6 +26,15 @@ export async function getRoster(classId: string): Promise<RosterStudent[]> {
   }));
 }
 
+export function joinClass(
+  joinCode: string,
+): Promise<{ class: ClassItem; joined: boolean }> {
+  return apiFetch('/classes/join', {
+    method: 'POST',
+    body: { joinCode },
+  });
+}
+
 export async function getLeaderboard(classId: string): Promise<Standing[]> {
   const data = await apiFetch<{
     students: (Omit<Standing, 'avatar'> & { avatar: string | null })[];

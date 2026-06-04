@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '#features/auth';
 import { ApiError } from '#shared/api';
 import { readCache, writeCache } from '#shared/cache';
-import { createClass, listClasses } from '../api';
+import { createClass, joinClass, listClasses } from '../api';
 import type { ClassItem } from '../types';
 
 export function useClasses() {
@@ -50,5 +50,18 @@ export function useClasses() {
     [cacheKey],
   );
 
-  return { classes, loading, error, refresh, create };
+  const join = useCallback(
+    async (code: string) => {
+      const data = await joinClass(code);
+      setClasses((prev) => {
+        if (prev.some((c) => c.id === data.class.id)) return prev;
+        const next = [...prev, data.class];
+        writeCache(cacheKey, next);
+        return next;
+      });
+    },
+    [cacheKey],
+  );
+
+  return { classes, loading, error, refresh, create, join };
 }

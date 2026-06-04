@@ -11,14 +11,16 @@ import {
 } from 'react-native';
 import { useAuth } from '#features/auth';
 import { type ClassItem, useClasses } from '#features/classes';
+import { ApiError } from '#shared/api';
 import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, fontSize, radii, spacing } from '#shared/design/foundations';
 
 export default function ClassesIndex() {
   const { user, logout } = useAuth();
-  const { classes, loading, error, refresh, create } = useClasses();
-  const [name, setName] = useState('');
-  const [creating, setCreating] = useState(false);
+  const { classes, loading, error, refresh, create, join } = useClasses();
+  const [input, setInput] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
 
   const isTeacher = user?.role === 'teacher';
@@ -30,14 +32,19 @@ export default function ClassesIndex() {
   };
 
   const submit = async () => {
-    const trimmed = name.trim();
+    const trimmed = input.trim();
     if (!trimmed) return;
-    setCreating(true);
+    setBusy(true);
+    setActionError(null);
     try {
-      await create(trimmed);
-      setName('');
+      await (isTeacher ? create(trimmed) : join(trimmed));
+      setInput('');
+    } catch (err) {
+      setActionError(
+        err instanceof ApiError ? err.message : 'Something went wrong',
+      );
     } finally {
-      setCreating(false);
+      setBusy(false);
     }
   };
 
@@ -59,9 +66,11 @@ export default function ClassesIndex() {
     >
       <Pressable style={styles.card}>
         <Typography variant="subtitle">{item.name}</Typography>
-        <Typography variant="caption" color="textSecondary">
-          Join code: {item.joinCode}
-        </Typography>
+        {isTeacher && (
+          <Typography variant="caption" color="textSecondary">
+            Join code: {item.joinCode}
+          </Typography>
+        )}
       </Pressable>
     </Link>
   );
@@ -75,26 +84,25 @@ export default function ClassesIndex() {
         <Button label="Log out" variant="ghost" size="sm" onPress={logout} />
       </View>
 
-      {isTeacher && (
-        <View style={styles.createRow}>
-          <TextInput
-            value={name}
-            onChangeText={setName}
-            placeholder="New class name"
-            style={styles.input}
-          />
-          <Button
-            label="Create"
-            size="sm"
-            onPress={submit}
-            disabled={creating}
-          />
-        </View>
-      )}
+      <View style={styles.createRow}>
+        <TextInput
+          value={input}
+          onChangeText={setInput}
+          placeholder={isTeacher ? 'New class name' : 'Class code'}
+          autoCapitalize={isTeacher ? 'sentences' : 'characters'}
+          style={styles.input}
+        />
+        <Button
+          label={isTeacher ? 'Create' : 'Join'}
+          size="sm"
+          onPress={submit}
+          disabled={busy}
+        />
+      </View>
 
-      {error && (
+      {(actionError || error) && (
         <Typography variant="caption" color="danger" style={styles.error}>
-          {error}
+          {actionError ?? error}
         </Typography>
       )}
 
@@ -111,6 +119,11 @@ export default function ClassesIndex() {
             <Icon name="chalkboard-user" size={32} color="textMuted" />
             <Typography variant="label" color="textSecondary">
               No classes yet
+            </Typography>
+            <Typography variant="caption" color="textMuted">
+              {isTeacher
+                ? 'Create your first class above.'
+                : 'Join one with a class code.'}
             </Typography>
           </View>
         }
