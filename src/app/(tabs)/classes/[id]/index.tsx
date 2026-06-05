@@ -135,6 +135,7 @@ function StudentView({
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.list}
       renderItem={renderItem}
+      ListHeaderComponent={<QuizzesLink classId={classId} />}
       ListEmptyComponent={<EmptyRoster />}
     />
   );

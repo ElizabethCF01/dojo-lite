@@ -13,6 +13,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { useAuth } from '#features/auth';
 import { type Quiz, useQuizzes } from '#features/quizzes';
 import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
@@ -20,6 +21,8 @@ import { colors, radii, spacing } from '#shared/design/foundations';
 export default function QuizzesList() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const { user } = useAuth();
+  const isTeacher = user?.role === 'teacher';
   const { quizzes, loading, error, refresh } = useQuizzes(id);
 
   useFocusEffect(
@@ -31,7 +34,9 @@ export default function QuizzesList() {
   const renderItem = ({ item }: { item: Quiz }) => (
     <Link
       href={{
-        pathname: '/classes/[id]/quizzes/[quizId]',
+        pathname: isTeacher
+          ? '/classes/[id]/quizzes/[quizId]'
+          : '/classes/[id]/quizzes/[quizId]/take',
         params: { id, quizId: item.id },
       }}
       asChild
@@ -46,18 +51,20 @@ export default function QuizzesList() {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'Quizzes' }} />
-      <View style={styles.toolbar}>
-        <Button
-          label="New quiz"
-          size="sm"
-          onPress={() =>
-            router.push({
-              pathname: '/classes/[id]/quizzes/new',
-              params: { id },
-            })
-          }
-        />
-      </View>
+      {isTeacher && (
+        <View style={styles.toolbar}>
+          <Button
+            label="New quiz"
+            size="sm"
+            onPress={() =>
+              router.push({
+                pathname: '/classes/[id]/quizzes/new',
+                params: { id },
+              })
+            }
+          />
+        </View>
+      )}
       {loading ? (
         <View style={styles.centered}>
           <ActivityIndicator color={colors.brand} />
