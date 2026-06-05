@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ApiError } from '#shared/api';
 import { readCache, writeCache } from '#shared/cache';
+import { successPulse, warningPulse } from '#shared/services';
 import { addPoints, getRoster } from '../api';
 import type { RosterStudent } from '../types';
 
@@ -48,6 +49,7 @@ export function useRoster(classId: string) {
           ),
         );
       shift(delta);
+      (delta > 0 ? successPulse : warningPulse)();
       try {
         await addPoints(classId, studentId, delta);
       } catch {
