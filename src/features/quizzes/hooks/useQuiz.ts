@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '#features/auth';
 import { ApiError } from '#shared/api';
 import { readCache, writeCache } from '#shared/cache';
 import { getQuiz } from '../api';
 import type { QuizDetail } from '../types';
 
 export function useQuiz(quizId: string) {
-  const cacheKey = `quiz:${quizId}`;
+  const { user } = useAuth();
+  const cacheKey = `quiz:${user?.id ?? 'anon'}:${quizId}`;
   const [quiz, setQuiz] = useState<QuizDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
