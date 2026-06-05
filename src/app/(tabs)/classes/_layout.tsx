@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-export default function StudentsStackLayout() {
+export default function ClassesLayout() {
   return (
     <Stack
       screenOptions={{
@@ -9,8 +9,8 @@ export default function StudentsStackLayout() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
-      <Stack.Screen name="index" options={{ title: 'Students' }} />
-      <Stack.Screen name="[id]" options={{ title: 'Student' }} />
+      <Stack.Screen name="index" options={{ title: 'Classes' }} />
+      <Stack.Screen name="[id]" options={{ title: 'Class' }} />
     </Stack>
   );
 }

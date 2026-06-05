@@ -17,5 +17,4 @@ export type {
   LeaderboardSection,
 } from './leaderboard';
 export { BELT_TIERS, buildLeaderboardSections } from './leaderboard';
-export { StudentsProvider, useStudents } from './store/StudentsProvider';
 export type { Student } from './types';

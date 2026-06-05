@@ -12,12 +12,12 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="students"
+        name="classes"
         options={{
-          title: 'Students',
+          title: 'Classes',
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome6 name="users" color={color} size={size} />
+            <FontAwesome6 name="chalkboard-user" color={color} size={size} />
           ),
         }}
       />
@@ -31,11 +31,11 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="profile"
         options={{
-          title: 'About',
+          title: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome6 name="circle-info" color={color} size={size} />
+            <FontAwesome6 name="user" color={color} size={size} />
           ),
         }}
       />

@@ -1,6 +1,7 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useAuth } from '#features/auth';
 import {
   BG_COLORS,
   ColorSection,
@@ -12,7 +13,6 @@ import {
   MOUTH_OPTIONS,
   SKIN_COLORS,
   TraitSection,
-  useStudents,
 } from '#features/students';
 import type { AvatarConfig } from '#shared/design/elements';
 import { Avatar, Button, Typography } from '#shared/design/elements';
@@ -24,15 +24,12 @@ const EYEBROWS_TRAIT = EYEBROWS_OPTIONS.map((value) => ({ value }));
 const MOUTH_TRAIT = MOUTH_OPTIONS.map((value) => ({ value }));
 
 export default function EditAvatar() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const { students, updateAvatar } = useStudents();
+  const { user, updateAvatar } = useAuth();
   const router = useRouter();
-
-  const student = students.find((s) => s.id === id);
-
   const [draft, setDraft] = useState<AvatarConfig>(
-    student?.avatar ?? { ...DEFAULT_AVATAR_CONFIG },
+    user?.avatar ?? { ...DEFAULT_AVATAR_CONFIG },
   );
+  const [saving, setSaving] = useState(false);
 
   const set = useCallback(
     (key: keyof AvatarConfig) => (value: string) =>
@@ -40,27 +37,24 @@ export default function EditAvatar() {
     [],
   );
 
-  if (!student) {
-    return (
-      <View style={styles.container}>
-        <Typography variant="body" color="textSecondary">
-          Student not found.
-        </Typography>
-      </View>
-    );
-  }
+  if (!user) return null;
 
-  const save = () => {
-    updateAvatar(student.id, draft);
-    router.back();
+  const save = async () => {
+    setSaving(true);
+    try {
+      await updateAvatar(draft);
+      router.back();
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.preview}>
-        <Avatar seed={student.name} size={120} config={draft} />
+        <Avatar seed={user.name} size={120} config={draft} />
         <Typography variant="label" style={styles.previewName}>
-          {student.name}
+          {user.name}
         </Typography>
       </View>
 
@@ -117,7 +111,7 @@ export default function EditAvatar() {
         />
 
         <View style={styles.saveRow}>
-          <Button label="Save" onPress={save} fullWidth />
+          <Button label="Save" onPress={save} disabled={saving} fullWidth />
         </View>
       </ScrollView>
     </View>

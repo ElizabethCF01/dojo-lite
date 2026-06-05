@@ -1,5 +1,8 @@
 import { Redirect } from 'expo-router';
+import { useAuth } from '#features/auth';
 
 export default function Index() {
-  return <Redirect href="/students" />;
+  const { status } = useAuth();
+  if (status === 'loading') return null;
+  return <Redirect href={status === 'authed' ? '/classes' : '/onboarding'} />;
 }
