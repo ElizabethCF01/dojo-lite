@@ -22,6 +22,15 @@ export type QuizDetail = Quiz & {
   questions: QuizQuestion[];
 };
 
+export type Attempt = {
+  id: string;
+  quizId: string;
+  studentId: string;
+  score: number;
+  totalQuestions: number;
+  submittedAt: string;
+};
+
 type NewQuizOption = {
   text: string;
   isCorrect: boolean;

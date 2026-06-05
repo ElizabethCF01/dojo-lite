@@ -1,5 +1,5 @@
 import { apiFetch } from '#shared/api';
-import type { NewQuiz, Quiz, QuizDetail } from './types';
+import type { Attempt, NewQuiz, Quiz, QuizDetail } from './types';
 
 export function listQuizzes(classId: string): Promise<{ quizzes: Quiz[] }> {
   return apiFetch<{ quizzes: Quiz[] }>(
@@ -9,6 +9,10 @@ export function listQuizzes(classId: string): Promise<{ quizzes: Quiz[] }> {
 
 export function getQuiz(quizId: string): Promise<{ quiz: QuizDetail }> {
   return apiFetch<{ quiz: QuizDetail }>(`/quizzes/${quizId}`);
+}
+
+export function listAttempts(quizId: string): Promise<{ attempts: Attempt[] }> {
+  return apiFetch<{ attempts: Attempt[] }>(`/quizzes/${quizId}/attempts`);
 }
 
 export function createQuiz(input: NewQuiz): Promise<{ quiz: Quiz }> {

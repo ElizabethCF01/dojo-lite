@@ -1,11 +1,12 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import { type QuizOption, type QuizQuestion, useQuiz } from '#features/quizzes';
-import { Icon, Typography } from '#shared/design/elements';
+import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function QuizDetail() {
-  const { quizId } = useLocalSearchParams<{ quizId: string }>();
+  const { id, quizId } = useLocalSearchParams<{ id: string; quizId: string }>();
+  const router = useRouter();
   const { quiz, loading, error } = useQuiz(quizId);
 
   if (loading && !quiz) {
@@ -31,6 +32,16 @@ export default function QuizDetail() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Stack.Screen options={{ title: quiz?.title ?? 'Quiz' }} />
+      <Button
+        label="View attempts"
+        variant="ghost"
+        onPress={() =>
+          router.push({
+            pathname: '/classes/[id]/quizzes/[quizId]/attempts',
+            params: { id, quizId },
+          })
+        }
+      />
       {quiz?.questions.map((q, qi) => (
         <QuestionBlock key={q.id} question={q} index={qi} />
       ))}
