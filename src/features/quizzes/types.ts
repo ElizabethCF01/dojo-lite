@@ -5,6 +5,23 @@ export type Quiz = {
   createdAt: string;
 };
 
+export type QuizOption = {
+  id: string;
+  text: string;
+  isCorrect?: boolean;
+};
+
+export type QuizQuestion = {
+  id: string;
+  text: string;
+  position: number;
+  options: QuizOption[];
+};
+
+export type QuizDetail = Quiz & {
+  questions: QuizQuestion[];
+};
+
 type NewQuizOption = {
   text: string;
   isCorrect: boolean;
