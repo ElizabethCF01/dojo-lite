@@ -1,8 +1,8 @@
-import { Stack, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { Link, Stack, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { type Quiz, useQuizzes } from '#features/quizzes';
-import { Icon, Typography } from '#shared/design/elements';
+import { Button, Icon, Typography } from '#shared/design/elements';
 import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function QuizzesList() {
@@ -24,6 +24,14 @@ export default function QuizzesList() {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'Quizzes' }} />
+      <View style={styles.toolbar}>
+        <Link
+          href={{ pathname: '/classes/[id]/quizzes/new', params: { id } }}
+          asChild
+        >
+          <Button label="New quiz" size="sm" />
+        </Link>
+      </View>
       {loading ? (
         <View style={styles.centered}>
           <ActivityIndicator color={colors.brand} />
@@ -59,6 +67,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  toolbar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
   },
   centered: {
     flex: 1,

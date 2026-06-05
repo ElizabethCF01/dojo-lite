@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ApiError } from '#shared/api';
 import { readCache, writeCache } from '#shared/cache';
-import { listQuizzes } from '../api';
-import type { Quiz } from '../types';
+import { createQuiz, listQuizzes } from '../api';
+import type { NewQuizQuestion, Quiz } from '../types';
 
 export function useQuizzes(classId: string) {
   const cacheKey = `quizzes:${classId}`;
@@ -41,5 +41,18 @@ export function useQuizzes(classId: string) {
     })();
   }, [cacheKey, refresh]);
 
-  return { quizzes, loading, error, refresh };
+  const create = useCallback(
+    async (title: string, questions: NewQuizQuestion[]) => {
+      const data = await createQuiz({ classId, title, questions });
+      setQuizzes((prev) => {
+        const next = [...prev, data.quiz];
+        writeCache(cacheKey, next);
+        return next;
+      });
+      return data.quiz;
+    },
+    [classId, cacheKey],
+  );
+
+  return { quizzes, loading, error, refresh, create };
 }
