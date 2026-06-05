@@ -1,5 +1,11 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { useAuth } from '#features/auth';
 import {
   type RosterStudent,
@@ -73,8 +79,26 @@ function TeacherView({ classId }: { classId: string }) {
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.list}
       renderItem={renderItem}
+      ListHeaderComponent={<QuizzesLink classId={classId} />}
       ListEmptyComponent={<EmptyRoster />}
     />
+  );
+}
+
+function QuizzesLink({ classId }: { classId: string }) {
+  return (
+    <Link
+      href={{ pathname: '/classes/[id]/quizzes', params: { id: classId } }}
+      asChild
+    >
+      <Pressable style={styles.quizzesLink}>
+        <View style={styles.left}>
+          <Icon name="clipboard-question" size={20} color="brand" />
+          <Typography variant="label">Quizzes</Typography>
+        </View>
+        <Icon name="chevron-right" size={16} color="textMuted" />
+      </Pressable>
+    </Link>
   );
 }
 
@@ -177,6 +201,16 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     gap: spacing.sm,
+  },
+  quizzesLink: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   empty: {
     flex: 1,
