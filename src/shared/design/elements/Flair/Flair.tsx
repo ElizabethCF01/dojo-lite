@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
-import { type ColorToken, colors, radii, spacing } from '../foundations';
-import { Typography } from './Typography';
+import { type ColorToken, colors, radii, spacing } from '../../foundations';
+import { Typography } from '../Typography';
 
 type Tone = 'neutral' | 'success' | 'danger' | 'brand';
 
