@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
-import type { AvatarConfig } from '#shared/design/elements';
-import { Avatar, Button, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
-import { formatPoints } from '#shared/design/helpers';
+import type { AvatarConfig } from '#design/elements';
+import { Avatar, Button, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
+import { formatPoints } from '#design/helpers';
 
 type StudentCardProps = {
   name: string;

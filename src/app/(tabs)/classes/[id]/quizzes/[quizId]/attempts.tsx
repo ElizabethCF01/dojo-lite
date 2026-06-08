@@ -1,10 +1,10 @@
 import { Stack, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useMemo } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { Avatar, Flair, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import { useRoster } from '#features/classes';
 import { type Attempt, useAttempts } from '#features/quizzes';
-import { Avatar, Flair, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function QuizAttempts() {
   const { id, quizId } = useLocalSearchParams<{ id: string; quizId: string }>();

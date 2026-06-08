@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import { Image, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, Flair, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
+import { Button, Flair, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import { markOnboardingSeen } from '#shared/onboarding';
 
 const classImage = require('../../../assets/images/class-image.png');

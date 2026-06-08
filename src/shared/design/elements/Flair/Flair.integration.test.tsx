@@ -3,7 +3,7 @@
  * Both components are rendered real (no mocks), so a bug in either will fail here.
  */
 import { render } from '@testing-library/react-native';
-import { colors } from '../foundations';
+import { colors } from '../../foundations';
 import { Flair } from './Flair';
 
 describe('Flair + Typography integration', () => {

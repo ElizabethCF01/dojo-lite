@@ -4,8 +4,8 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { type ColorToken, colors, radii, spacing } from '../foundations';
-import { Typography } from './Typography';
+import { type ColorToken, colors, radii, spacing } from '../../foundations';
+import { Typography } from '../Typography';
 
 type Variant = 'primary' | 'success' | 'danger' | 'ghost';
 type Size = 'sm' | 'md';

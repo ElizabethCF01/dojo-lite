@@ -9,11 +9,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { Button, Icon, Typography } from '#design/elements';
+import { colors, fontSize, radii, spacing } from '#design/foundations';
 import { useAuth } from '#features/auth';
 import { type ClassItem, useClasses } from '#features/classes';
 import { ApiError } from '#shared/api';
-import { Button, Icon, Typography } from '#shared/design/elements';
-import { colors, fontSize, radii, spacing } from '#shared/design/foundations';
 
 export default function ClassesIndex() {
   const { user } = useAuth();

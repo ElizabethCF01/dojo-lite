@@ -9,10 +9,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { Button, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import { useQuizzes } from '#features/quizzes';
 import { ApiError } from '#shared/api';
-import { Button, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
 
 type DraftOption = { key: string; text: string; isCorrect: boolean };
 type DraftQuestion = { key: string; text: string; options: DraftOption[] };

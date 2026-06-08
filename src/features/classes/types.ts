@@ -6,7 +6,7 @@ export type ClassItem = {
   createdAt: string;
 };
 
-import type { AvatarConfig } from '#shared/design/elements';
+import type { AvatarConfig } from '#design/elements';
 
 export type RosterStudent = {
   id: string;

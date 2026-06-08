@@ -1,8 +1,8 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { colors } from '#design/foundations';
 import { AuthProvider, useAuth } from '#features/auth';
-import { colors } from '#shared/design/foundations';
 
 function RootNavigator() {
   const { status } = useAuth();

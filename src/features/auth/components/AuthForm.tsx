@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
+import { Button, Typography } from '#design/elements';
+import { colors, fontSize, radii, spacing } from '#design/foundations';
 import { ApiError } from '#shared/api';
-import { Button, Typography } from '#shared/design/elements';
-import { colors, fontSize, radii, spacing } from '#shared/design/foundations';
 import { useAuth } from '../store/AuthProvider';
 import type { Role } from '../types';
 

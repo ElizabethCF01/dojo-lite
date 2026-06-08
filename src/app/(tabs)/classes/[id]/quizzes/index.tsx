@@ -13,10 +13,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { Button, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import { useAuth } from '#features/auth';
 import { type Quiz, useQuizzes } from '#features/quizzes';
-import { Button, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function QuizzesList() {
   const { id } = useLocalSearchParams<{ id: string }>();

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, View } from 'react-native';
-import { stripHash } from '../helpers';
+import { stripHash } from '../../helpers';
 
 export type AvatarConfig = {
   hair?: string;

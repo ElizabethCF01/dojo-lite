@@ -1,5 +1,10 @@
 import { Text, type TextProps, type TextStyle } from 'react-native';
-import { type ColorToken, colors, fontSize, fontWeight } from '../foundations';
+import {
+  type ColorToken,
+  colors,
+  fontSize,
+  fontWeight,
+} from '../../foundations';
 
 type Variant = 'display' | 'title' | 'subtitle' | 'body' | 'label' | 'caption';
 

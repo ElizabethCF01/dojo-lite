@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
+import { colors } from '#design/foundations';
 import { AuthForm } from '#features/auth';
-import { colors } from '#shared/design/foundations';
 
 export default function Login() {
   return (
