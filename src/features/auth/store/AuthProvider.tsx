@@ -6,8 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
+import type { AvatarConfig } from '#design/elements';
 import { setAuthToken } from '#shared/api';
-import type { AvatarConfig } from '#shared/design/elements';
 import * as authApi from '../api';
 import type { AuthUser, Role } from '../types';
 import {

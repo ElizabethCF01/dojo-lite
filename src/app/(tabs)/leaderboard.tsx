@@ -8,14 +8,14 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { Avatar, Flair, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
+import { formatPoints, pluralize } from '#design/helpers';
 import { useClasses, useLeaderboard } from '#features/classes';
 import {
   buildLeaderboardSections,
   type LeaderboardEntry,
 } from '#features/students';
-import { Avatar, Flair, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
-import { formatPoints, pluralize } from '#shared/design/helpers';
 
 export default function Leaderboard() {
   const { classes, refresh: refreshClasses } = useClasses();

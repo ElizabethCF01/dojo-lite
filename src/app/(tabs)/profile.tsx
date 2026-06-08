@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
+import { Avatar, Button, Flair, Typography } from '#design/elements';
+import { colors, spacing } from '#design/foundations';
 import { useAuth } from '#features/auth';
-import { Avatar, Button, Flair, Typography } from '#shared/design/elements';
-import { colors, spacing } from '#shared/design/foundations';
 
 export default function Profile() {
   const { user, logout } = useAuth();

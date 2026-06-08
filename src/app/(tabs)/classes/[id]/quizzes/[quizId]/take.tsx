@@ -7,14 +7,14 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { Button, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import {
   type QuizOption,
   type QuizQuestion,
   useQuiz,
   useSubmitAttempt,
 } from '#features/quizzes';
-import { Button, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function TakeQuiz() {
   const { quizId } = useLocalSearchParams<{ quizId: string }>();

@@ -5,9 +5,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import type { AvatarConfig } from '#shared/design/elements';
-import { Avatar, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
+import type { AvatarConfig } from '#design/elements';
+import { Avatar, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import type { ColorOption } from './avatarOptions';
 import { DEFAULT_AVATAR_CONFIG } from './avatarOptions';
 

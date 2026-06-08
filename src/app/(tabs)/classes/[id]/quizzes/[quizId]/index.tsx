@@ -1,8 +1,8 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
 import { type QuizOption, type QuizQuestion, useQuiz } from '#features/quizzes';
-import { Button, Icon, Typography } from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
 
 export default function QuizDetail() {
   const { id, quizId } = useLocalSearchParams<{ id: string; quizId: string }>();

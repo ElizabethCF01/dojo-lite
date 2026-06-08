@@ -6,6 +6,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { Avatar, Button, Flair, Icon, Typography } from '#design/elements';
+import { colors, radii, spacing } from '#design/foundations';
+import { formatPoints } from '#design/helpers';
 import { useAuth } from '#features/auth';
 import {
   type RosterStudent,
@@ -13,15 +16,6 @@ import {
   useLeaderboard,
   useRoster,
 } from '#features/classes';
-import {
-  Avatar,
-  Button,
-  Flair,
-  Icon,
-  Typography,
-} from '#shared/design/elements';
-import { colors, radii, spacing } from '#shared/design/foundations';
-import { formatPoints } from '#shared/design/helpers';
 
 export default function ClassDetail() {
   const { id, name } = useLocalSearchParams<{ id: string; name?: string }>();

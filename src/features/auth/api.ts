@@ -1,5 +1,5 @@
+import type { AvatarConfig } from '#design/elements';
 import { apiFetch } from '#shared/api';
-import type { AvatarConfig } from '#shared/design/elements';
 import type { AuthResponse, AuthUser, Role } from './types';
 
 type RawUser = Omit<AuthUser, 'avatar'> & { avatar?: string | null };
